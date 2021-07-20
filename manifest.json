@@ -1,0 +1,14 @@
+{
+    "description": "Another G+ WebApp",
+    "framework": "ubuntu-sdk-14.04",
+    "hooks": {
+        "google-plus": {
+        "apparmor": "app.json",
+        "desktop": "app.desktop"
+    }
+},
+    "maintainer": "Oliver Grawert <ogra@ubuntu.com>",
+	"name": "google-plus.ogra",
+    "title": "Google Plus",
+    "version": "0.1"
+}
