@@ -1,27 +1,27 @@
-import QtQuick 2.2
-import Ubuntu.Web 0.2
-import Ubuntu.Components 1.1
-import com.canonical.Oxide 1.0 as Oxide
+import QtQuick 2.9
+import Morph.Web 0.1
+import Ubuntu.Components 1.3
+import QtQuick.Controls 2.2
+import QtWebEngine 1.7 as QTWEBENGINE
 import "UCSComponents"
-import Ubuntu.Content 1.1
-import QtMultimedia 5.0
-import QtFeedback 5.0
+import Ubuntu.Content 1.3
 import "."
-import "../config.js" as Conf
+import "config.js" as Conf
 
 MainView {
     objectName: "mainView"
+    width: units.gu(45)
+    height: units.gu(75)
+    applicationName: "webappcontainer.ogra"
 
-    applicationName: "google-plus.ogra"
-
-    useDeprecatedToolbar: false
-    anchorToKeyboard: true
+    //useDeprecatedToolbar: false
+    //anchorToKeyboard: true
     automaticOrientation: true
 
     property string myUrl: Conf.webappUrl
     property string myPattern: Conf.webappUrlPattern
 
-    property string myUA: Conf.webappUA ? Conf.webappUA : "Mozilla/5.0 (Linux; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.102 Mobile Safari/537.36"
+    property string myUA: Conf.webappUA ? Conf.webappUA : "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"
 
     Page {
         id: page
@@ -31,21 +31,6 @@ MainView {
         }
         width: parent.width
         height: parent.height
-
-        HapticsEffect {
-            id: vibration
-            attackIntensity: 0.0
-            attackTime: 50
-            intensity: 1.0
-            duration: 10
-            fadeTime: 50
-            fadeIntensity: 0.0
-        }
-
-        SoundEffect {
-            id: clicksound
-            source: "../sounds/Click.wav"
-        }
 
         WebContext {
             id: webcontext
@@ -62,25 +47,17 @@ MainView {
 
             context: webcontext
             url: myUrl
-            preferences.localStorageEnabled: true
-            preferences.allowFileAccessFromFileUrls: true
-            preferences.allowUniversalAccessFromFileUrls: true
-            preferences.appCacheEnabled: true
-            preferences.javascriptCanAccessClipboard: true
-            filePicker: filePickerLoader.item
+            //preferences.localStorageEnabled: true
+            //preferences.allowFileAccessFromFileUrls: true
+            //preferences.allowUniversalAccessFromFileUrls: true
+            //preferences.appCacheEnabled: true
+            //preferences.javascriptCanAccessClipboard: true
+            //filePicker: filePickerLoader.item
 
             function navigationRequestedDelegate(request) {
                 var url = request.url.toString();
                 var pattern = myPattern.split(',');
                 var isvalid = false;
-
-                if (Conf.hapticLinks) {
-                    vibration.start()
-                }
-
-                if (Conf.audibleLinks) {
-                    clicksound.play()
-                }
 
                 for (var i=0; i<pattern.length; i++) {
                     var tmpsearch = pattern[i].replace(/\*/g,'(.*)')
@@ -93,23 +70,23 @@ MainView {
                 if(isvalid == false) {
                     console.warn("Opening remote: " + url);
                     Qt.openUrlExternally(url)
-                    request.action = Oxide.NavigationRequest.ActionReject
+                    request.action = QTWEBENGINE.NavigationRequest.ActionReject
                 }
             }
             Component.onCompleted: {
-                preferences.localStorageEnabled = true
+                //preferences.localStorageEnabled = true
                 if (Qt.application.arguments[1].toString().indexOf(myUrl) > -1) {
                     console.warn("got argument: " + Qt.application.arguments[1])
                     url = Qt.application.arguments[1]
                 }
                 console.warn("url is: " + url)
             }
-            onGeolocationPermissionRequested: { request.accept() }
-            Loader {
+            //onGeolocationPermissionRequested: { request.accept() }
+            /*Loader {
                 id: filePickerLoader
                 source: "ContentPickerDialog.qml"
                 asynchronous: true
-            }
+            }*/
         }
         ThinProgressBar {
             webview: webview
