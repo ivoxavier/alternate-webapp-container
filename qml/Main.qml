@@ -21,7 +21,7 @@ MainView {
     property string myUrl: Conf.webappUrl
     property string myPattern: Conf.webappUrlPattern
 
-    property string myUA: Conf.webappUA ? Conf.webappUA : "Mozilla/5.0 (Linux; Ubuntu @UBUNTU_VERSION@ like Android 5.0;) AppleWebKit/537.36 Chrome/${CHROMIUM_VERSION} Mobile Safari/537.36"
+    property string myUA: Conf.webappUA ? Conf.webappUA : "Mozilla/5.0 (Linux, Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
     Page {
         id: page
