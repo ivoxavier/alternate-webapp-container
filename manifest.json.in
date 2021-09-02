@@ -1,0 +1,15 @@
+{
+    "name": "webappcontainer.ogra",
+    "description": "alternate-webapp-container",
+    "architecture": "@CLICK_ARCH@",
+    "title": "ograContainer",
+    "hooks": {
+        "webappcontainer": {
+            "apparmor": "webappcontainer.apparmor",
+            "desktop":  "webappcontainer.desktop.in"
+        }
+    },
+    "version": "0.0.1",
+    "maintainer": "Ivo Xavier <ivofernandes12@gmail.com>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}

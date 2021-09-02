@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Google Plus
+Name=WebApp Container
 Type=Application
 Icon=icon.png
 Exec=qmlscene %u qml/Main.qml
